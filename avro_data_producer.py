@@ -74,6 +74,7 @@ producer = SerializingProducer({
 
 # Load the CSV data into a pandas DataFrame
 df = pd.read_csv('retail_data.csv')
+df = df.fillna('null')
 
 # Iterate over DataFrame rows and produce to Kafka
 for index, row in df.iterrows():
