@@ -40,19 +40,20 @@ kafka_config = {
     'bootstrap.servers': 'pkc-41p56.asia-south1.gcp.confluent.cloud:9092',
     'sasl.mechanisms': 'PLAIN',
     'security.protocol': 'SASL_SSL',
-    'sasl.username': 'Y35XAUWJH4K6IAB3',
-    'sasl.password': 'LY180mfR+XUbYUPyM5g93i0jPmnPh0ZZGuhv3FhtMaL2lauqQWD3utJNcQKDOvr4'
+    'sasl.username': 'H332HW5VMQQKAVSK',
+    'sasl.password': 'yr8NU90uihqrwk5KtkCQWmu62eH6jAZcuPzSEpaBIWyDov6JOMhaWKWE9gLMsE5A
 }
 
 # Create a Schema Registry client
 schema_registry_client = SchemaRegistryClient({
-  'url': 'https://psrc-em82q.us-east-2.aws.confluent.cloud',
-  'basic.auth.user.info': '{}:{}'.format('TGDCYTCLBR46NMPB', 'CcuDlU08lL9LPD/od7k5mverQJegGnnrXvzhCA5x+MprEvtC6wvy+Pf1Q/YZHNxK')
+  'url': 'https://psrc-4xgzx.us-east-2.aws.confluent.cloud',
+  'basic.auth.user.info': '{}:{}'.format('3RRMKDRLIU3B64XR', '3A23FVuffXsnihqww2GAqLeU7vLmxeuLXqC8AisCnPk1BgDZpPKSYOv/qcfvRrEd')
 })
 
 # Fetch the latest Avro schema for the value
 subject_name = 'retail_data-value'
 schema_str = schema_registry_client.get_latest_version(subject_name).schema.schema_str
+print(schema_str)
 
 # Create Avro Serializer for the value
 # key_serializer = AvroSerializer(schema_registry_client=schema_registry_client, schema_str='{"type": "string"}')
@@ -75,6 +76,7 @@ producer = SerializingProducer({
 # Load the CSV data into a pandas DataFrame
 df = pd.read_csv('retail_data.csv')
 df = df.fillna('null')
+print(df.head())
 
 # Iterate over DataFrame rows and produce to Kafka
 for index, row in df.iterrows():
